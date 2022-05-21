@@ -15,7 +15,7 @@ resource "azurerm_network_interface" "hubsitea_routervm_1" {
 }
 
 resource "azurerm_public_ip" "hubsitea_routervm_1" {
-  name                = "${azurerm_resource_group.hubsitea.name}-pip"
+  name                = "${azurerm_resource_group.hubsitea.name}-vm-router-pip"
   location            = azurerm_resource_group.hubsitea.location
   resource_group_name = azurerm_resource_group.hubsitea.name
   allocation_method   = "Static"
