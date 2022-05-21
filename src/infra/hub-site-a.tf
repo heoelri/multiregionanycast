@@ -37,7 +37,7 @@ resource "azurerm_network_security_group" "hubvnet_subnet_3_nsg" {
   location            = azurerm_resource_group.hubsitea.location
   resource_group_name = azurerm_resource_group.hubsitea.name
 
-  security_rule { 
+  security_rule {                              # temporary allow SSH in - should be disabled or locked down later
     name                       = "SSH-inbound" # allow inbound for router nva vm
     priority                   = 100
     direction                  = "Inbound"
@@ -46,7 +46,7 @@ resource "azurerm_network_security_group" "hubvnet_subnet_3_nsg" {
     source_port_range          = "*"
     destination_port_range     = "22" # ssh
     source_address_prefix      = "*"
-    destination_address_prefix = azurerm_network_interface.hubsitea_routervm_1.private_ip_address
+    destination_address_prefix = "*" # azurerm_network_interface.hubsitea_routervm_1.private_ip_address
   }
 }
 

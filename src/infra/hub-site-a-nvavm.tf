@@ -10,7 +10,16 @@ resource "azurerm_network_interface" "hubsitea_routervm_1" {
     name                          = "internal"
     subnet_id                     = azurerm_subnet.hubvnet_subnet_3.id
     private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = azurerm_public_ip.hubsitea_routervm_1.id
   }
+}
+
+resource "azurerm_public_ip" "hubsitea_routervm_1" {
+  name                = "${azurerm_resource_group.hubsitea.name}-pip"
+  location            = azurerm_resource_group.hubsitea.location
+  resource_group_name = azurerm_resource_group.hubsitea.name
+  allocation_method   = "Static"
+  sku                 = "Standard"
 }
 
 resource "azurerm_linux_virtual_machine" "hubsitea_routervm_1" {
