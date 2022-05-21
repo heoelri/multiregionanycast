@@ -131,7 +131,13 @@ resource "azurerm_linux_virtual_machine" "hubsitea_routervm_1" {
 
 # Data template Bash bootstrapping file
 data "local_file" "cloudinit" {
-  filename = "${path.module}/quagga.conf"
+  #filename = "${path.module}/quagga.conf"
+  filename = templatefile(
+      "${path.module}/quagga.conf", {
+          asn_quagga = azurerm_virtual_hub_bgp_connection.hubsitea_nva_connection.peer_asn,
+          bgp_routerId = azurerm_network_interface.hubsitea_routervm_1.private_ip_address
+      }
+  )
 }
 
 resource "azurerm_storage_account" "hubsitea_routervm_1" {
