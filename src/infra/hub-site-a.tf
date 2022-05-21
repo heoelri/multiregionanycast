@@ -32,6 +32,29 @@ resource "azurerm_subnet" "hubvnet_subnet_3" {
   address_prefixes     = ["10.1.3.0/24"]
 }
 
+resource "azurerm_network_security_group" "hubvnet_subnet_3_nsg" {
+  name                = "${azurerm_virtual_network.hubvneta.name}-${azurerm_subnet.hubvnet_subnet_3.name}-nsg"
+  location            = azurerm_resource_group.hubsitea.location
+  resource_group_name = azurerm_resource_group.hubsitea.name
+
+  security_rule { 
+    name                       = "SSH-inbound" # allow inbound for router nva vm
+    priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "22" # ssh
+    source_address_prefix      = "*"
+    destination_address_prefix = azurerm_network_interface.hubsitea_routervm_1.private_ip_address
+  }
+}
+
+resource "azurerm_subnet_network_security_group_association" "hubvnet_subnet_3_nsg" {
+  subnet_id                 = azurerm_subnet.hubvnet_subnet_3.id
+  network_security_group_id = azurerm_network_security_group.hubvnet_subnet_3_nsg.id
+}
+
 resource "azurerm_subnet" "hubvnet_subnet_gateway" {
   name                 = "GatewaySubnet"
   resource_group_name  = azurerm_resource_group.hubsitea.name
