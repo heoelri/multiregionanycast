@@ -69,3 +69,42 @@ resource "azurerm_virtual_hub_ip" "hubsitea_vhub_ip" {
   public_ip_address_id         = azurerm_public_ip.hubsitea.id
   subnet_id                    = azurerm_subnet.hubvnet_subnet_routeserver.id
 }
+
+#
+# VM-based Router (NVA)
+#
+resource "azurerm_network_interface" "hubsitea_routervm_1" {
+  name                = "${azurerm_resource_group.hubsitea.name}-vm-router-nic"
+  location            = azurerm_resource_group.hubsitea.location
+  resource_group_name = azurerm_resource_group.hubsitea.name
+
+  ip_configuration {
+    name                          = "internal"
+    subnet_id                     = azurerm_subnet.hubvnet_subnet_3.id
+    private_ip_address_allocation = "Dynamic"
+  }
+}
+
+resource "azurerm_linux_virtual_machine" "hubsitea_routervm_1" {
+  name                = "${azurerm_resource_group.hubsitea.name}-vm-router"
+  resource_group_name = azurerm_resource_group.hubsitea.name
+  location            = azurerm_resource_group.hubsitea.location
+  size                = "Standard_F2"
+  admin_username      = "adminuser"
+  admin_password      = random_password.password
+  network_interface_ids = [
+    azurerm_network_interface.hubsitea_routervm_1.id,
+  ]
+
+  os_disk {
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
+  }
+
+  source_image_reference {
+    publisher = "Canonical"
+    offer     = "UbuntuServer"
+    sku       = "18.04-LTS"
+    version   = "latest"
+  }
+}
