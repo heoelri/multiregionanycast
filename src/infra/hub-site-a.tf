@@ -137,11 +137,11 @@ resource "azurerm_linux_virtual_machine" "hubsitea_routervm_1" {
 data "template_file" "cloudinit" {
   template = file("${path.module}/quagga.conf")
   vars = {
-    asn_quagga   = azurerm_virtual_hub_bgp_connection.hubsitea_nva_connection.peer_asn,
-    bgp_routerId = azurerm_network_interface.hubsitea_routervm_1.private_ip_address,
-    bgp_network1 = azurerm_subnet.hubvnet_subnet_1.address_prefixes,
-    bgp_network2 = azurerm_subnet.hubvnet_subnet_2.address_prefixes,
-    bgp_network3 = azurerm_subnet.hubvnet_subnet_3.address_prefixes,
+    asn_quagga      = azurerm_virtual_hub_bgp_connection.hubsitea_nva_connection.peer_asn,
+    bgp_routerId    = azurerm_network_interface.hubsitea_routervm_1.private_ip_address,
+    bgp_network1    = azurerm_subnet.hubvnet_subnet_1.address_prefixes[0],
+    bgp_network2    = azurerm_subnet.hubvnet_subnet_2.address_prefixes[0],
+    bgp_network3    = azurerm_subnet.hubvnet_subnet_3.address_prefixes[0],
     routeserver_IP1 = "1.2.3.4",
     routeserver_IP2 = "4.3.2.1"
   }
