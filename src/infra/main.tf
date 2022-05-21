@@ -4,9 +4,6 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "3.7.0"
     }
-    random = {
-      version = ">= 2.2.1"
-    }
   }
 
   backend "azurerm" {}
@@ -19,16 +16,3 @@ provider "azurerm" {
 
 data "azurerm_client_config" "current" {
 }
-
-# Random Pet Name (based on Resource Group Name)
-resource "random_pet" "deployment" {
-  separator = ""
-  length    = 2
-  prefix    = ""
-  keepers = {
-    azurerm_resource_group_location = azurerm_resource_group.deployment.location
-    azurerm_resource_group_name     = azurerm_resource_group.deployment.name
-  }
-}
-
-
