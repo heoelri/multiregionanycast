@@ -62,14 +62,15 @@ resource "azurerm_linux_virtual_machine" "hubsitea_routervm_1" {
 
 data "template_file" "cloudinit" {
   template = file("${path.module}/quagga.conf")
+
   vars = {
-    asn_quagga      = azurerm_virtual_hub_bgp_connection.hubsitea_nva_connection.peer_asn,
-    bgp_routerId    = azurerm_network_interface.hubsitea_routervm_1.private_ip_address,
-    bgp_network1    = azurerm_subnet.hubvnet_subnet_1.address_prefixes[0],
-    bgp_network2    = azurerm_subnet.hubvnet_subnet_2.address_prefixes[0],
-    bgp_network3    = azurerm_subnet.hubvnet_subnet_3.address_prefixes[0],
-    routeserver_IP1 = "1.2.3.4",
-    routeserver_IP2 = "4.3.2.1"
+    asn_quagga      = azurerm_virtual_hub_bgp_connection.hubsitea_nva_connection.peer_asn, # Autonomous system number assigned to quagga
+    bgp_routerId    = azurerm_network_interface.hubsitea_routervm_1.private_ip_address, # IP address of quagga VM
+    bgp_network1    = azurerm_subnet.hubvnet_subnet_1.address_prefixes[0], # first network advertised from quagga to the router server (inclusive of subnetmask)
+    bgp_network2    = azurerm_subnet.hubvnet_subnet_2.address_prefixes[0], # second network advertised from quagga to the router server (inclusive of subnetmask)
+    bgp_network3    = azurerm_subnet.hubvnet_subnet_3.address_prefixes[0], # third network advertised from quagga to the router server (inclusive of subnetmask)
+    routeserver_IP1 = "1.2.3.4", # first IP address of the router server 
+    routeserver_IP2 = azurerm_virtual_hub_ip.hubsitea_vhub_ip # "4.3.2.1" # second IP address of the router server
   }
 }
 
