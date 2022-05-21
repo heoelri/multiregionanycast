@@ -57,7 +57,7 @@ resource "azurerm_public_ip" "hubsitea" {
   name                = "${azurerm_resource_group.hubsitea.name}-pip"
   location            = azurerm_resource_group.hubsitea.location
   resource_group_name = azurerm_resource_group.hubsitea.name
-  allocation_method   = "Dynamic"
+  allocation_method   = "Static"
   sku                 = "Standard"
 }
 
