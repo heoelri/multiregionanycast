@@ -76,7 +76,9 @@ resource "azurerm_virtual_hub_bgp_connection" "hubsitea_nva_connection" {
   peer_asn       = 65001
   peer_ip        = azurerm_network_interface.hubsitea_routervm_1.private_ip_address
 
-  depends_on = [azurerm_virtual_hub_ip.hubsitea_vhub_ip]
+  depends_on = [
+    azurerm_virtual_hub_ip.hubsitea_vhub_ip
+  ]
 }
 
 #
@@ -118,7 +120,7 @@ resource "azurerm_linux_virtual_machine" "hubsitea_routervm_1" {
   source_image_reference {
     publisher = "Canonical"
     offer     = "UbuntuServer"
-    sku       = "18.04-LTS"
+    sku       = "20.04-LTS"
     version   = "latest"
   }
 }
