@@ -17,12 +17,3 @@ provider "azurerm" {
   features {}
 }
 
-data "azurerm_client_config" "current" {
-}
-
-# Random Pet Name (based on Resource Group Name)
-resource "random_password" "password" {
-  length           = 16
-  special          = true
-  override_special = "!#$%&*()-_=+[]{}<>:?"
-}

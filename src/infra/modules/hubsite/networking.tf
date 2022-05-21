@@ -1,8 +1,3 @@
-resource "azurerm_resource_group" "hubsitea" {
-  name     = "hub-site-a"
-  location = "West Europe"
-}
-
 resource "azurerm_virtual_network" "hubvneta" {
   name                = "${azurerm_resource_group.hubsitea.name}-vnet"
   location            = azurerm_resource_group.hubsitea.location
