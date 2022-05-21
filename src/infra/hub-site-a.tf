@@ -106,8 +106,8 @@ resource "azurerm_linux_virtual_machine" "hubsitea_routervm_1" {
 
   disable_password_authentication = false
 
-  custom_data = base64encode(data.local_file.cloudinit.content)
-
+  #custom_data = base64encode(data.local_file.cloudinit.content)
+  custom_data = base64encode(data.template_file.cloudinit.rendered)
   network_interface_ids = [
     azurerm_network_interface.hubsitea_routervm_1.id,
   ]
@@ -130,14 +130,16 @@ resource "azurerm_linux_virtual_machine" "hubsitea_routervm_1" {
 }
 
 # Data template Bash bootstrapping file
-data "local_file" "cloudinit" {
-  #filename = "${path.module}/quagga.conf"
-  filename = templatefile(
-      "${path.module}/quagga.conf", {
-          asn_quagga = azurerm_virtual_hub_bgp_connection.hubsitea_nva_connection.peer_asn,
-          bgp_routerId = azurerm_network_interface.hubsitea_routervm_1.private_ip_address
-      }
-  )
+#data "local_file" "cloudinit" {
+#  filename = "${path.module}/quagga.conf"
+#}
+
+data "template_file" "cloudinit" {
+  template = file("${path.module}/quagga.conf")
+  vars = {
+    asn_quagga   = azurerm_virtual_hub_bgp_connection.hubsitea_nva_connection.peer_asn,
+    bgp_routerId = azurerm_network_interface.hubsitea_routervm_1.private_ip_address
+  }
 }
 
 resource "azurerm_storage_account" "hubsitea_routervm_1" {
@@ -146,4 +148,8 @@ resource "azurerm_storage_account" "hubsitea_routervm_1" {
   location                 = azurerm_resource_group.hubsitea.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
+}
+
+output "metadata" {
+  value = "\n${data.template_file.cloudinit.rendered}"
 }
