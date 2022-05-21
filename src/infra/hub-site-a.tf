@@ -91,7 +91,7 @@ resource "azurerm_linux_virtual_machine" "hubsitea_routervm_1" {
   location            = azurerm_resource_group.hubsitea.location
   size                = "Standard_F2"
   admin_username      = "adminuser"
-  admin_password      = random_password.password
+  admin_password      = random_password.password.result
   network_interface_ids = [
     azurerm_network_interface.hubsitea_routervm_1.id,
   ]
