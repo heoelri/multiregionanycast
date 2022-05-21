@@ -70,7 +70,7 @@ data "template_file" "cloudinit" {
     bgp_network2    = azurerm_subnet.hubvnet_subnet_2.address_prefixes[0], # second network advertised from quagga to the router server (inclusive of subnetmask)
     bgp_network3    = azurerm_subnet.hubvnet_subnet_3.address_prefixes[0], # third network advertised from quagga to the router server (inclusive of subnetmask)
     routeserver_IP1 = "1.2.3.4", # first IP address of the router server 
-    routeserver_IP2 = azurerm_virtual_hub_ip.hubsitea_vhub_ip # "4.3.2.1" # second IP address of the router server
+    routeserver_IP2 = "4.3.2.1" # second IP address of the router server
   }
 }
 
