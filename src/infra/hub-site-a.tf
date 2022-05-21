@@ -92,6 +92,11 @@ resource "azurerm_linux_virtual_machine" "hubsitea_routervm_1" {
   size                = "Standard_F2"
   admin_username      = "adminuser"
   admin_password      = random_password.password.result
+
+  disable_password_authentication = false
+
+  custom_data = base64encode(data.local_file.cloudinit.content)
+
   network_interface_ids = [
     azurerm_network_interface.hubsitea_routervm_1.id,
   ]
@@ -107,4 +112,9 @@ resource "azurerm_linux_virtual_machine" "hubsitea_routervm_1" {
     sku       = "18.04-LTS"
     version   = "latest"
   }
+}
+
+# Data template Bash bootstrapping file
+data "local_file" "cloudinit" {
+  filename = "${path.module}/quagga.conf"
 }
