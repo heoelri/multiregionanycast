@@ -112,6 +112,10 @@ resource "azurerm_linux_virtual_machine" "hubsitea_routervm_1" {
     azurerm_network_interface.hubsitea_routervm_1.id,
   ]
 
+  boot_diagnostics {
+    storage_account_uri = azurerm_storage_account.hubsitea_routervm_1.primary_blob_endpoint
+  }
+
   os_disk {
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
@@ -128,4 +132,12 @@ resource "azurerm_linux_virtual_machine" "hubsitea_routervm_1" {
 # Data template Bash bootstrapping file
 data "local_file" "cloudinit" {
   filename = "${path.module}/quagga.conf"
+}
+
+resource "azurerm_storage_account" "hubsitea_routervm_1" {
+  name                     = "hubsiteadiagstor"
+  resource_group_name      = azurerm_resource_group.hubsitea.name
+  location                 = azurerm_resource_group.hubsitea.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
 }
