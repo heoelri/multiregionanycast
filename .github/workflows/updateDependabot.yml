@@ -2,10 +2,7 @@ name: Update Dependabot config
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-    - main
-
+  
 jobs:
   UpdateDependabot:
     runs-on: ubuntu-latest
