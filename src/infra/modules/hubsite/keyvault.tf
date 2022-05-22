@@ -26,4 +26,8 @@ resource "azurerm_key_vault_secret" "nva_admin_password" {
   name         = "nva-admin-password"
   value        = random_password.password.result
   key_vault_id = azurerm_key_vault.hubsite.id
+
+  depends_on = [
+    azurerm_key_vault_access_policy.devops_pipeline
+  ]
 }
