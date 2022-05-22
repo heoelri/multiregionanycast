@@ -72,6 +72,12 @@ resource "azurerm_subnet_network_security_group_association" "hubvnet_subnet_3_n
   network_security_group_id = azurerm_network_security_group.hubvnet_subnet_3_nsg.id
 }
 
+resource "azurerm_network_security_group" "hubvnet_default_nsg" {
+  name                = "${azurerm_virtual_network.hubvneta.name}-default-nsg"
+  location            = azurerm_resource_group.hubsite.location
+  resource_group_name = azurerm_resource_group.hubsite.name
+}
+
 resource "azurerm_subnet" "hubvnet_subnet_gateway" {
   name                 = "GatewaySubnet"
   resource_group_name  = azurerm_resource_group.hubsite.name

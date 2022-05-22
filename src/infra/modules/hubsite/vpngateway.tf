@@ -16,7 +16,7 @@ resource "azurerm_virtual_network_gateway" "hubsite_vpngw" {
 
   active_active = true
   enable_bgp    = true
-  sku           = "Basic"
+  sku           = "HighPerformance"
 
   ip_configuration {
     name                          = "vnetGatewayConfig"
