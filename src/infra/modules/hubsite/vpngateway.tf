@@ -1,5 +1,5 @@
 resource "azurerm_public_ip" "hubsite_vpngw_pip1" {
-  name                = "${azurerm_resource_group.hubsite.name}-vpngw-pip"
+  name                = "${azurerm_resource_group.hubsite.name}-vpngw-pip1"
   location            = azurerm_resource_group.hubsite.location
   resource_group_name = azurerm_resource_group.hubsite.name
 
@@ -7,7 +7,7 @@ resource "azurerm_public_ip" "hubsite_vpngw_pip1" {
 }
 
 resource "azurerm_public_ip" "hubsite_vpngw_pip2" {
-  name                = "${azurerm_resource_group.hubsite.name}-vpngw-pip"
+  name                = "${azurerm_resource_group.hubsite.name}-vpngw-pip2"
   location            = azurerm_resource_group.hubsite.location
   resource_group_name = azurerm_resource_group.hubsite.name
 
