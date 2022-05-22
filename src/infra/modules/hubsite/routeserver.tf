@@ -1,5 +1,5 @@
 resource "azurerm_virtual_hub" "hubsite_vhub" {
-  name                = "${azurerm_resource_group.hubsite.name}-vhub"
+  name                = "${azurerm_resource_group.hubsite.name}-routeserver"
   resource_group_name = azurerm_resource_group.hubsite.name
   location            = azurerm_resource_group.hubsite.location
   sku                 = "Standard"
