@@ -8,7 +8,7 @@ resource "random_password" "password" {
   override_special = "!#$%&*()-_=+[]{}<>:?"
 }
 
-resource "azurerm_resource_group" "hubsitea" {
+resource "azurerm_resource_group" "hubsite" {
   name     = "hub-site-${var.location}"
   location = var.location
 }
