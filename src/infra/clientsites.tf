@@ -45,3 +45,16 @@ resource "azurerm_virtual_network_gateway" "clientsitea_vpngw" {
     subnet_id                     = azurerm_subnet.clientsitea_gatewaysubnet.id
   }
 }
+
+# foreach? multiple hubsites
+resource "azurerm_virtual_network_gateway_connection" "clientsitea_to_hubsitea" {
+  name                = "clientsitea-to-hubsitea"
+  location            = azurerm_resource_group.clientsitea.location
+  resource_group_name = azurerm_resource_group.clientsitea.name
+
+  type                            = "Vnet2Vnet"
+  virtual_network_gateway_id      = azurerm_virtual_network_gateway.clientsitea_vpngw.id
+  peer_virtual_network_gateway_id = module.hubsite["westeurope"].peer_virtual_network_gateway_id
+
+  shared_key = "4-v3ry-53cr37-1p53c-5h4r3d-k3y"
+}

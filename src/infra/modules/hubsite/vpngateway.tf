@@ -6,7 +6,7 @@ resource "azurerm_public_ip" "hubsite_vpngw_pip" {
   allocation_method = "Dynamic"
 }
 
-resource "azurerm_virtual_network_gateway" "example" {
+resource "azurerm_virtual_network_gateway" "hubsite_vpngw" {
   name                = "${azurerm_resource_group.hubsite.name}-vpngw"
   location            = azurerm_resource_group.hubsite.location
   resource_group_name = azurerm_resource_group.hubsite.name

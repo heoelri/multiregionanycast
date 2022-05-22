@@ -81,7 +81,3 @@ resource "azurerm_storage_account" "hubsite_routervm_1" {
   account_tier             = "Standard"
   account_replication_type = "LRS"
 }
-
-output "custom_data" {
-  value = "\n${data.template_file.cloudinit.rendered}"
-}
