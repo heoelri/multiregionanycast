@@ -7,6 +7,10 @@
 * Deploy Mission-Critical Connected
 * Deploy Router as VMSS for zone-redundancy
 
+## Considerations
+
+* VPN Gateway deployment can take a while - up to 40mins
+
 ## Requirements
 
 * VPN Gateway SKU needs to be set to 'HighPerformance'

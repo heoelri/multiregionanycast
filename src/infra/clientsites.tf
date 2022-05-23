@@ -20,7 +20,7 @@ resource "random_password" "vpn_shared_key" {
 # foreach? multiple hubsites
 # vpn connection from client site a to hubsite a
 resource "azurerm_virtual_network_gateway_connection" "clientsite_to_hubsitea" {
-  name                = "clientsite-to-hubsitea"
+  name                = "clientsite-to-hubsite"
   location            = module.clientsite["westeurope"].location
   resource_group_name = module.clientsite["westeurope"].resource_group_name
 
@@ -33,7 +33,7 @@ resource "azurerm_virtual_network_gateway_connection" "clientsite_to_hubsitea" {
 
 # vpn connection from hub site a to client site a
 resource "azurerm_virtual_network_gateway_connection" "hubsitea_to_clientsite" {
-  name                = "hubsitea-to-clientsite"
+  name                = "hubsite-to-clientsite"
   location            = module.hubsite["westeurope"].location
   resource_group_name = module.hubsite["westeurope"].resource_group_name
 
