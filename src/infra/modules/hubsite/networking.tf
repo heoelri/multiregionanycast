@@ -79,3 +79,14 @@ resource "azurerm_subnet" "hubvnet_subnet_bastion" {
   virtual_network_name = azurerm_virtual_network.hubvneta.name
   address_prefixes     = var.bastionsubnet_address_space
 }
+
+resource "azurerm_network_security_group" "default" {
+  name                = "${azurerm_virtual_network.hubvneta.name}-default-nsg"
+  location            = azurerm_resource_group.hubsite.location
+  resource_group_name = azurerm_resource_group.hubsite.name
+}
+
+resource "azurerm_subnet_network_security_group_association" "hubvnet_bastion_default_nsg" {
+  subnet_id                 = azurerm_subnet.hubvnet_subnet_bastion.id
+  network_security_group_id = azurerm_network_security_group.default.id
+}
