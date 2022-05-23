@@ -6,7 +6,7 @@ resource "azurerm_public_ip" "hubsite_bastion_pip" {
   sku                 = "Standard"
 }
 
-resource "azurerm_bastion_host" "example" {
+resource "azurerm_bastion_host" "hubsite_bastion" {
   name                = "${azurerm_resource_group.hubsite.name}-bastion"
   location            = azurerm_resource_group.hubsite.location
   resource_group_name = azurerm_resource_group.hubsite.name
