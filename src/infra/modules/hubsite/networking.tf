@@ -53,18 +53,6 @@ resource "azurerm_network_security_group" "hubvnet_subnet_3_nsg" {
   name                = "${azurerm_virtual_network.hubvneta.name}-${azurerm_subnet.hubvnet_subnet_3.name}-nsg"
   location            = azurerm_resource_group.hubsite.location
   resource_group_name = azurerm_resource_group.hubsite.name
-
-  security_rule {                              # temporary allow SSH in - should be disabled or locked down later
-    name                       = "SSH-inbound" # allow inbound for router nva vm
-    priority                   = 100
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "22" # ssh
-    source_address_prefix      = "*"
-    destination_address_prefix = "*" # azurerm_network_interface.hubsite_routervm_1.private_ip_address
-  }
 }
 
 resource "azurerm_subnet_network_security_group_association" "hubvnet_subnet_3_nsg" {
@@ -90,4 +78,11 @@ resource "azurerm_subnet" "hubvnet_subnet_routeserver" {
   resource_group_name  = azurerm_resource_group.hubsite.name
   virtual_network_name = azurerm_virtual_network.hubvneta.name
   address_prefixes     = ["10.1.5.0/24"]
+}
+
+resource "azurerm_subnet" "hubvnet_subnet_bastion" {
+  name                 = "AzureBastionSubnet"
+  resource_group_name  = azurerm_resource_group.hubsite.name
+  virtual_network_name = azurerm_virtual_network.hubvneta.name
+  address_prefixes     = ["10.1.6.0/24"]
 }

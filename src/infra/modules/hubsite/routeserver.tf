@@ -5,6 +5,7 @@ resource "azurerm_virtual_hub" "hubsite_vhub" {
   sku                 = "Standard"
 }
 
+# public ip used for azure route server (required)
 resource "azurerm_public_ip" "hubsite" {
   name                = "${azurerm_resource_group.hubsite.name}-pip"
   location            = azurerm_resource_group.hubsite.location
@@ -13,6 +14,7 @@ resource "azurerm_public_ip" "hubsite" {
   sku                 = "Standard"
 }
 
+# azure route server resource
 resource "azurerm_virtual_hub_ip" "hubsite_vhub_ip" {
   name                         = "${azurerm_resource_group.hubsite.name}-vhubipconfig"
   virtual_hub_id               = azurerm_virtual_hub.hubsite_vhub.id
@@ -22,6 +24,7 @@ resource "azurerm_virtual_hub_ip" "hubsite_vhub_ip" {
   subnet_id                    = azurerm_subnet.hubvnet_subnet_routeserver.id
 }
 
+# bgp connection for azure route server
 resource "azurerm_virtual_hub_bgp_connection" "hubsite_nva_connection" {
   name           = "${azurerm_resource_group.hubsite.name}-vhub-bgpconnection"
   virtual_hub_id = azurerm_virtual_hub.hubsite_vhub.id
