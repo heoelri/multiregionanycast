@@ -27,14 +27,3 @@ resource "azurerm_virtual_network_gateway" "clientsite_vpngw" {
     subnet_id                     = azurerm_subnet.clientsite_gatewaysubnet.id
   }
 }
-
-# generate random password
-resource "random_password" "vpn_shared_key" {
-  length           = 64
-  special          = true
-  override_special = "!#$%&*()-_=+[]{}<>:?"
-
-  keepers = {
-    value = azurerm_virtual_network_gateway.clientsite_vpngw.id
-  }
-}
