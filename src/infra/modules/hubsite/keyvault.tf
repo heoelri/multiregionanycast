@@ -37,7 +37,7 @@ resource "azurerm_key_vault_secret" "nva_admin_password" {
 # Storage ssh private key for router nva (quagga) in azure key vault
 resource "azurerm_key_vault_secret" "nva_privatekey" {
   name         = "nva-adminuser-privatekey"
-  value        = tls_private_key.routernv_private_key.private_key_openssh
+  value        = trimspaces(tls_private_key.routernv_private_key.private_key_openssh)
   key_vault_id = azurerm_key_vault.hubsite.id
 
   depends_on = [
