@@ -19,11 +19,16 @@ resource "azurerm_linux_virtual_machine" "hubsite_routervm_1" {
   location            = azurerm_resource_group.hubsite.location
   size                = "Standard_F2"
   admin_username      = "adminuser"
-  admin_password      = random_password.password.result
 
-  disable_password_authentication = false
+  admin_ssh_key {
+    username   = "adminuser"
+    public_key = tls_private_key.routernv_private_key.public_key_pem #file("~/.ssh/id_rsa.pub")
+  }
 
+  #admin_password      = random_password.password.result
+  #disable_password_authentication = false
   #custom_data = base64encode(data.local_file.cloudinit.content)
+
   custom_data = base64encode(data.template_file.cloudinit.rendered)
   network_interface_ids = [
     azurerm_network_interface.hubsite_routervm_1.id,
