@@ -1,5 +1,5 @@
 output "virtual_network_gateway_id" {
-    value = azurerm_virtual_network_gateway.clientsite_vpngw.id
+    value = azurerm_virtual_network_gateway.clientsite.id
 }
 
 output "location" {

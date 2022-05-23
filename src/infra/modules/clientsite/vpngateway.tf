@@ -1,5 +1,5 @@
 # public ip address used for client side vpn gateway
-resource "azurerm_public_ip" "clientsite_vpngw_pip" {
+resource "azurerm_public_ip" "clientsite_pip" {
   name                = "${azurerm_resource_group.clientsite.name}-vpn-pip"
   location            = azurerm_resource_group.clientsite.location
   resource_group_name = azurerm_resource_group.clientsite.name
@@ -8,7 +8,7 @@ resource "azurerm_public_ip" "clientsite_vpngw_pip" {
 }
 
 # client side vpn gateway
-resource "azurerm_virtual_network_gateway" "clientsite_vpngw" {
+resource "azurerm_virtual_network_gateway" "clientsite" {
   name                = "${azurerm_resource_group.clientsite.name}-vpngw"
   location            = azurerm_resource_group.clientsite.location
   resource_group_name = azurerm_resource_group.clientsite.name
@@ -22,7 +22,7 @@ resource "azurerm_virtual_network_gateway" "clientsite_vpngw" {
 
   ip_configuration {
     name                          = "vnetGatewayConfig"
-    public_ip_address_id          = azurerm_public_ip.clientsite_vpngw_pip.id
+    public_ip_address_id          = azurerm_public_ip.clientsite_pip.id
     private_ip_address_allocation = "Dynamic"
     subnet_id                     = azurerm_subnet.clientsite_gatewaysubnet.id
   }

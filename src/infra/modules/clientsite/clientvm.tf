@@ -1,3 +1,14 @@
+# generate random password (used to access client vm)
+resource "random_password" "password" {
+  length           = 16
+  special          = true
+  override_special = "!#$%&*()-_=+[]{}<>:?"
+
+  keepers = {
+    value = azurerm_resource_group.clientsite.name # generate once 
+  }
+}
+
 resource "azurerm_network_interface" "clientsite_clientvm" {
   name                = "${azurerm_resource_group.clientsite.name}-clientvm-nic"
   location            = azurerm_resource_group.clientsite.location
