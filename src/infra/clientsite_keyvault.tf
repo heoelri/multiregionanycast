@@ -1,8 +1,8 @@
 # client site key vault used to store secrets
 resource "azurerm_key_vault" "clientsite" {
-  name                        = "${azurerm_resource_group.clientsitea.name}-kv"
-  location                    = azurerm_resource_group.clientsitea.location
-  resource_group_name         = azurerm_resource_group.clientsitea.name
+  name                        = "${azurerm_resource_group.clientsite.name}-kv"
+  location                    = azurerm_resource_group.clientsite.location
+  resource_group_name         = azurerm_resource_group.clientsite.name
   enabled_for_disk_encryption = true
   tenant_id                   = data.azurerm_client_config.current.tenant_id
   soft_delete_retention_days  = 7

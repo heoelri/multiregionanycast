@@ -1,19 +1,19 @@
 resource "azurerm_network_interface" "clientsite_clientvm" {
-  name                = "${azurerm_resource_group.clientsitea.name}-clientvm-nic"
-  location            = azurerm_resource_group.clientsitea.location
-  resource_group_name = azurerm_resource_group.clientsitea.name
+  name                = "${azurerm_resource_group.clientsite.name}-clientvm-nic"
+  location            = azurerm_resource_group.clientsite.location
+  resource_group_name = azurerm_resource_group.clientsite.name
 
   ip_configuration {
     name                          = "internal"
-    subnet_id                     = azurerm_subnet.clientsitea_subnet_clients.id
+    subnet_id                     = azurerm_subnet.clientsite_subnet_clients.id
     private_ip_address_allocation = "Dynamic"
   }
 }
 
 resource "azurerm_windows_virtual_machine" "clientsite_clientvm" {
   name                = "client-vm"
-  resource_group_name = azurerm_resource_group.clientsitea.name
-  location            = azurerm_resource_group.clientsitea.location
+  resource_group_name = azurerm_resource_group.clientsite.name
+  location            = azurerm_resource_group.clientsite.location
   size                = "Standard_F2"
   admin_username      = "adminuser"
   admin_password      = random_password.password.result
