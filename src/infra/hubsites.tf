@@ -1,5 +1,5 @@
 module "hubsite" {
-  for_each = toset(var.sites)
+  for_each = toset(var.hubsites)
 
   source = "./modules/hubsite"
 
