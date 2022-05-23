@@ -85,9 +85,19 @@ resource "azurerm_subnet" "hubvnet_subnet_gateway" {
   address_prefixes     = ["10.1.4.0/24"]
 }
 
+resource "azurerm_subnet_network_security_group_association" "hubvnet_gatewaysubnet_nsg" {
+  subnet_id                 = azurerm_subnet.hubvnet_subnet_gateway.id
+  network_security_group_id = azurerm_network_security_group.hubvnet_default_nsg.id
+}
+
 resource "azurerm_subnet" "hubvnet_subnet_routeserver" {
   name                 = "RouteServerSubnet"
   resource_group_name  = azurerm_resource_group.hubsite.name
   virtual_network_name = azurerm_virtual_network.hubvneta.name
   address_prefixes     = ["10.1.5.0/24"]
+}
+
+resource "azurerm_subnet_network_security_group_association" "hubvnet_routeserver_nsg" {
+  subnet_id                 = azurerm_subnet.hubvnet_subnet_routeserver.id
+  network_security_group_id = azurerm_network_security_group.hubvnet_default_nsg.id
 }
