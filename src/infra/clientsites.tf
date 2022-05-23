@@ -1,9 +1,6 @@
-module "clientsite" {
-  for_each = toset(var.clientsites)
-
-  source = "./modules/clientsite"
-
-  location = each.value
+module "clientsite_westeurope" {
+  source   = "./modules/clientsite"
+  location = "westeurope"
 }
 
 # generate random password
@@ -13,19 +10,19 @@ resource "random_password" "vpn_shared_key" {
   override_special = "!#$%&*()-_=+[]{}<>:?"
 
   keepers = {
-    value = module.clientsite["westeurope"].virtual_network_gateway_id
+    value = module.clientsite_westeurope.virtual_network_gateway_id
   }
 }
 
 # vpn connection from client site a to hubsite a
 resource "azurerm_virtual_network_gateway_connection" "clientsite_to_hubsitea" {
   name                = "clientsite-to-hubsite-westeurope"
-  location            = module.clientsite["westeurope"].location
-  resource_group_name = module.clientsite["westeurope"].resource_group_name
+  location            = module.clientsite_westeurope.location
+  resource_group_name = module.clientsite_westeurope.resource_group_name
 
   type                            = "Vnet2Vnet"
-  virtual_network_gateway_id      = module.clientsite["westeurope"].virtual_network_gateway_id
-  peer_virtual_network_gateway_id = module.hubsite["westeurope"].virtual_network_gateway_id
+  virtual_network_gateway_id      = module.clientsite_westeurope.virtual_network_gateway_id
+  peer_virtual_network_gateway_id = module.hubsite_westeurope.virtual_network_gateway_id
 
   shared_key = random_password.vpn_shared_key.result
 }
@@ -33,12 +30,12 @@ resource "azurerm_virtual_network_gateway_connection" "clientsite_to_hubsitea" {
 # vpn connection from client site a to hubsite a
 resource "azurerm_virtual_network_gateway_connection" "clientsite_to_hubsiteb" {
   name                = "clientsite-to-hubsite-northeurope"
-  location            = module.clientsite["westeurope"].location
-  resource_group_name = module.clientsite["westeurope"].resource_group_name
+  location            = module.clientsite_westeurope.location
+  resource_group_name = module.clientsite_westeurope.resource_group_name
 
   type                            = "Vnet2Vnet"
-  virtual_network_gateway_id      = module.clientsite["northeurope"].virtual_network_gateway_id
-  peer_virtual_network_gateway_id = module.hubsite["northeurope"].virtual_network_gateway_id
+  virtual_network_gateway_id      = module.clientsite_westeurope.virtual_network_gateway_id
+  peer_virtual_network_gateway_id = module.hubsite_westeurope.virtual_network_gateway_id
 
   shared_key = random_password.vpn_shared_key.result
 }

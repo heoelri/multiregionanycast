@@ -2,15 +2,14 @@ resource "azurerm_virtual_network" "hubvneta" {
   name                = "${azurerm_resource_group.hubsite.name}-vnet"
   location            = azurerm_resource_group.hubsite.location
   resource_group_name = azurerm_resource_group.hubsite.name
-  address_space       = ["10.1.0.0/16"]
-  #dns_servers         = ["10.0.0.4", "10.0.0.5"]
+  address_space       = var.address_space
 }
 
 resource "azurerm_subnet" "hubvnet_subnet_1" {
   name                 = "subnet1" # first network advertised from quagga to the router server
   resource_group_name  = azurerm_resource_group.hubsite.name
   virtual_network_name = azurerm_virtual_network.hubvneta.name
-  address_prefixes     = ["10.1.1.0/24"]
+  address_prefixes     = var.subnet_1_address_space
 }
 
 resource "azurerm_network_security_group" "hubvnet_subnet_1_nsg" {
@@ -28,7 +27,7 @@ resource "azurerm_subnet" "hubvnet_subnet_2" {
   name                 = "subnet2" # second network advertised from quagga to the router server
   resource_group_name  = azurerm_resource_group.hubsite.name
   virtual_network_name = azurerm_virtual_network.hubvneta.name
-  address_prefixes     = ["10.1.2.0/24"]
+  address_prefixes     = var.subnet_2_address_space
 }
 
 resource "azurerm_network_security_group" "hubvnet_subnet_2_nsg" {
@@ -46,7 +45,7 @@ resource "azurerm_subnet" "hubvnet_subnet_3" {
   name                 = "subnet3" # second network advertised from quagga to the router server
   resource_group_name  = azurerm_resource_group.hubsite.name
   virtual_network_name = azurerm_virtual_network.hubvneta.name
-  address_prefixes     = ["10.1.3.0/24"]
+  address_prefixes     = var.subnet_3_address_space
 }
 
 resource "azurerm_network_security_group" "hubvnet_subnet_3_nsg" {
@@ -64,19 +63,19 @@ resource "azurerm_subnet" "hubvnet_subnet_gateway" {
   name                 = "GatewaySubnet"
   resource_group_name  = azurerm_resource_group.hubsite.name
   virtual_network_name = azurerm_virtual_network.hubvneta.name
-  address_prefixes     = ["10.1.4.0/24"]
+  address_prefixes     = var.gatewaysubnet_address_space
 }
 
 resource "azurerm_subnet" "hubvnet_subnet_routeserver" {
   name                 = "RouteServerSubnet"
   resource_group_name  = azurerm_resource_group.hubsite.name
   virtual_network_name = azurerm_virtual_network.hubvneta.name
-  address_prefixes     = ["10.1.5.0/24"]
+  address_prefixes     = var.routeserversubnet_address_space
 }
 
 resource "azurerm_subnet" "hubvnet_subnet_bastion" {
   name                 = "AzureBastionSubnet"
   resource_group_name  = azurerm_resource_group.hubsite.name
   virtual_network_name = azurerm_virtual_network.hubvneta.name
-  address_prefixes     = ["10.1.6.0/24"]
+  address_prefixes     = var.bastionsubnet_address_space
 }
