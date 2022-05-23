@@ -51,6 +51,10 @@ resource "random_password" "vpn_shared_key" {
   length           = 64
   special          = true
   override_special = "!#$%&*()-_=+[]{}<>:?"
+
+  keepers = [
+    azurerm_virtual_network_gateway.clientsitea_vpngw.id
+  ]
 }
 
 # foreach? multiple hubsites
