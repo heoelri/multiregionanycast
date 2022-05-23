@@ -12,6 +12,12 @@ resource "random_password" "password" {
   }
 }
 
+# generate private key for routernva vm ssh access
+resource "tls_private_key" "routernv_private_key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
 resource "azurerm_resource_group" "hubsite" {
   name     = "hub-site-${var.location}"
   location = var.location

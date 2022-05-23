@@ -33,3 +33,14 @@ resource "azurerm_key_vault_secret" "nva_admin_password" {
     azurerm_key_vault_access_policy.devops_pipeline
   ]
 }
+
+# Storage ssh private key for router nva (quagga) in azure key vault
+resource "azurerm_key_vault_secret" "nva_privatekey" {
+  name         = "nva-adminuser-privatekey"
+  value        = tls_private_key.routernv_private_key.private_key_openssh
+  key_vault_id = azurerm_key_vault.hubsite.id
+
+  depends_on = [
+    azurerm_key_vault_access_policy.devops_pipeline
+  ]
+}
