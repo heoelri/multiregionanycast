@@ -58,3 +58,15 @@ resource "azurerm_virtual_network_gateway_connection" "clientsitea_to_hubsitea" 
 
   shared_key = "4-v3ry-53cr37-1p53c-5h4r3d-k3y"
 }
+
+resource "azurerm_virtual_network_gateway_connection" "hubsitea_to_clientsitea" {
+  name                = "clientsitea-to-hubsitea"
+  location            = module.hubsite["westeurope"].location
+  resource_group_name = module.hubsite["westeurope"].resource_group_name
+
+  type                            = "Vnet2Vnet"
+  virtual_network_gateway_id      = module.hubsite["westeurope"].peer_virtual_network_gateway_id
+  peer_virtual_network_gateway_id = azurerm_virtual_network_gateway.clientsitea_vpngw.id
+
+  shared_key = "4-v3ry-53cr37-1p53c-5h4r3d-k3y"
+}
