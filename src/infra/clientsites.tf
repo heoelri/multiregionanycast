@@ -22,7 +22,7 @@ resource "random_password" "vpn_shared_key" {
 resource "azurerm_virtual_network_gateway_connection" "clientsite_to_hubsitea" {
   name                = "clientsite-to-hubsitea"
   location            = module.clientsite["westeurope"].location
-  resource_group_name = module.clientsite["westeurope"].name
+  resource_group_name = module.clientsite["westeurope"].resource_group_name
 
   type                            = "Vnet2Vnet"
   virtual_network_gateway_id      = module.clientsite["westeurope"].virtual_network_gateway_id
