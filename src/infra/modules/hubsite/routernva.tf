@@ -22,7 +22,7 @@ resource "azurerm_linux_virtual_machine" "hubsite_routervm_1" {
 
   admin_ssh_key {
     username   = "adminuser"
-    public_key = trimspace(tls_private_key.routernv_private_key.public_key_pem) #file("~/.ssh/id_rsa.pub")
+    public_key = tls_private_key.routernv_private_key.public_key_openssh #file("~/.ssh/id_rsa.pub")
   }
 
   #admin_password      = random_password.password.result
