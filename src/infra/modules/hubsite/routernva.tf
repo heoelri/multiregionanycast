@@ -18,6 +18,7 @@ resource "azurerm_linux_virtual_machine" "hubsite_routervm_1" {
   resource_group_name = azurerm_resource_group.hubsite.name
   location            = azurerm_resource_group.hubsite.location
   size                = "Standard_F2"
+  admin_username      = "adminuser"
 
   admin_ssh_key {
     username   = "adminuser"
