@@ -3,6 +3,17 @@ resource "azurerm_resource_group" "clientsitea" {
   location = "westeurope"
 }
 
+# generate random password (used to access client vm)
+resource "random_password" "password" {
+  length           = 16
+  special          = true
+  override_special = "!#$%&*()-_=+[]{}<>:?"
+
+  keepers = {
+    value = azurerm_resource_group.clientsitea.name # generate once 
+  }
+}
+
 # client side virtual network
 resource "azurerm_virtual_network" "clientvneta" {
   name                = "${azurerm_resource_group.clientsitea.name}-vnet"

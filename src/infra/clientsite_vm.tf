@@ -16,7 +16,7 @@ resource "azurerm_windows_virtual_machine" "clientsite_clientvm" {
   location            = azurerm_resource_group.clientsitea.location
   size                = "Standard_F2"
   admin_username      = "adminuser"
-  admin_password      = "P@$$w0rd1234!"
+  admin_password      = random_password.password.result
   network_interface_ids = [
     azurerm_network_interface.clientsite_clientvm.id,
   ]
