@@ -13,7 +13,7 @@ resource "azurerm_key_vault" "clientsite" {
 
 # Give KV secret permissions to the service principal that runs the Terraform apply itself
 resource "azurerm_key_vault_access_policy" "devops_pipeline" {
-  key_vault_id = azurerm_key_vault.hubsite.id
+  key_vault_id = azurerm_key_vault.clientsite.id
 
   tenant_id = data.azurerm_client_config.current.tenant_id
   object_id = data.azurerm_client_config.current.object_id
