@@ -5,6 +5,7 @@
 * VPN Connectivity
 * Client VM
 * Deploy Mission-Critical Connected
+* Deploy Router as VMSS for zone-redundancy
 
 ## Requirements
 
