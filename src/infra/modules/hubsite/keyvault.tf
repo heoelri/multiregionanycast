@@ -1,3 +1,4 @@
+# hub site key vault used to store secrets
 resource "azurerm_key_vault" "hubsite" {
   name                        = "${azurerm_resource_group.hubsite.name}-kv"
   location                    = azurerm_resource_group.hubsite.location
@@ -22,6 +23,7 @@ resource "azurerm_key_vault_access_policy" "devops_pipeline" {
   ]
 }
 
+# Storage adminpassword for router nva (quagga) in azure key vault
 resource "azurerm_key_vault_secret" "nva_admin_password" {
   name         = "nva-admin-password"
   value        = random_password.password.result

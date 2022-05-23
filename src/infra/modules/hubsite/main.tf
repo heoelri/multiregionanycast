@@ -6,6 +6,10 @@ resource "random_password" "password" {
   length           = 16
   special          = true
   override_special = "!#$%&*()-_=+[]{}<>:?"
+
+  keepers = {
+    value = azurerm_resource_group.hubsite.name # generate once 
+  }
 }
 
 resource "azurerm_resource_group" "hubsite" {

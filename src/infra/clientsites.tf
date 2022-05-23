@@ -3,6 +3,7 @@ resource "azurerm_resource_group" "clientsitea" {
   location = "westeurope"
 }
 
+# client side virtual network
 resource "azurerm_virtual_network" "clientvneta" {
   name                = "${azurerm_resource_group.clientsitea.name}-vnet"
   location            = azurerm_resource_group.clientsitea.location
@@ -11,6 +12,7 @@ resource "azurerm_virtual_network" "clientvneta" {
   #dns_servers         = ["10.0.0.4", "10.0.0.5"]
 }
 
+# subnet used for client side vpn gateway (name must be set to GatewaySubnet)
 resource "azurerm_subnet" "clientsitea_gatewaysubnet" {
   name                 = "GatewaySubnet"
   resource_group_name  = azurerm_resource_group.clientsitea.name
@@ -18,6 +20,7 @@ resource "azurerm_subnet" "clientsitea_gatewaysubnet" {
   address_prefixes     = ["10.10.1.0/24"]
 }
 
+# public ip address used for client side vpn gateway
 resource "azurerm_public_ip" "clientsitea_vpngw_pip" {
   name                = "${azurerm_resource_group.clientsitea.name}-vpn-pip"
   location            = azurerm_resource_group.clientsitea.location
@@ -26,6 +29,7 @@ resource "azurerm_public_ip" "clientsitea_vpngw_pip" {
   allocation_method = "Dynamic"
 }
 
+# client side vpn gateway
 resource "azurerm_virtual_network_gateway" "clientsitea_vpngw" {
   name                = "${azurerm_resource_group.clientsitea.name}-vpngw"
   location            = azurerm_resource_group.clientsitea.location
@@ -52,12 +56,13 @@ resource "random_password" "vpn_shared_key" {
   special          = true
   override_special = "!#$%&*()-_=+[]{}<>:?"
 
-  keepers = [
-    azurerm_virtual_network_gateway.clientsitea_vpngw.id
-  ]
+  keepers = {
+    value = azurerm_virtual_network_gateway.clientsitea_vpngw.id
+  }
 }
 
 # foreach? multiple hubsites
+# vpn connection from client site a to hubsite a
 resource "azurerm_virtual_network_gateway_connection" "clientsitea_to_hubsitea" {
   name                = "clientsitea-to-hubsitea"
   location            = azurerm_resource_group.clientsitea.location
@@ -70,8 +75,9 @@ resource "azurerm_virtual_network_gateway_connection" "clientsitea_to_hubsitea" 
   shared_key = random_password.vpn_shared_key.result
 }
 
+# vpn connection from hub site a to client site a
 resource "azurerm_virtual_network_gateway_connection" "hubsitea_to_clientsitea" {
-  name                = "clientsitea-to-hubsitea"
+  name                = "hubsitea-to-clientsitea"
   location            = module.hubsite["westeurope"].location
   resource_group_name = module.hubsite["westeurope"].resource_group_name
 
