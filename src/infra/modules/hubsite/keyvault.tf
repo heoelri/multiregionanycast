@@ -44,13 +44,3 @@ resource "azurerm_key_vault_secret" "nva_privatekey" {
     azurerm_key_vault_access_policy.devops_pipeline
   ]
 }
-
-resource "azurerm_key_vault_secret" "nva_privatekey_pem" {
-  name         = "nva-adminuser-privatekey-pem"
-  value        = trimspace(tls_private_key.routernv_private_key.public_key_pem)
-  key_vault_id = azurerm_key_vault.hubsite.id
-
-  depends_on = [
-    azurerm_key_vault_access_policy.devops_pipeline
-  ]
-}
