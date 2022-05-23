@@ -17,16 +17,28 @@ resource "random_password" "vpn_shared_key" {
   }
 }
 
-# foreach? multiple hubsites
 # vpn connection from client site a to hubsite a
 resource "azurerm_virtual_network_gateway_connection" "clientsite_to_hubsitea" {
-  name                = "clientsite-to-hubsite"
+  name                = "clientsite-to-hubsite-westeurope"
   location            = module.clientsite["westeurope"].location
   resource_group_name = module.clientsite["westeurope"].resource_group_name
 
   type                            = "Vnet2Vnet"
   virtual_network_gateway_id      = module.clientsite["westeurope"].virtual_network_gateway_id
   peer_virtual_network_gateway_id = module.hubsite["westeurope"].virtual_network_gateway_id
+
+  shared_key = random_password.vpn_shared_key.result
+}
+
+# vpn connection from client site a to hubsite a
+resource "azurerm_virtual_network_gateway_connection" "clientsite_to_hubsiteb" {
+  name                = "clientsite-to-hubsite-northeurope"
+  location            = module.clientsite["westeurope"].location
+  resource_group_name = module.clientsite["westeurope"].resource_group_name
+
+  type                            = "Vnet2Vnet"
+  virtual_network_gateway_id      = module.clientsite["northeurope"].virtual_network_gateway_id
+  peer_virtual_network_gateway_id = module.hubsite["northeurope"].virtual_network_gateway_id
 
   shared_key = random_password.vpn_shared_key.result
 }
