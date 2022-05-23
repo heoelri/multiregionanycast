@@ -26,7 +26,7 @@ resource "azurerm_linux_virtual_machine" "hubsite_routervm_1" {
   }
 
   #admin_password      = random_password.password.result
-  #disable_password_authentication = false
+  disable_password_authentication = true
   #custom_data = base64encode(data.local_file.cloudinit.content)
 
   custom_data = base64encode(data.template_file.cloudinit.rendered)
