@@ -37,5 +37,7 @@ resource "azurerm_virtual_network_gateway_connection" "clientsite_to_hubsiteb" {
   virtual_network_gateway_id      = module.clientsite_westeurope.virtual_network_gateway_id
   peer_virtual_network_gateway_id = module.hubsite_swedencentral.virtual_network_gateway_id
 
+  enable_bgp = true
+
   shared_key = random_password.vpn_shared_key.result
 }
