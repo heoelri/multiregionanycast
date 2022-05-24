@@ -6,7 +6,7 @@ resource "azurerm_container_group" "workload" {
   #dns_name_label      = "aci-label" conflicts with network_profile_id
   os_type             = "Linux"
 
-  network_profile_id = azurerm_subnet.workload_subnet_1.id
+  network_profile_id = azurerm_network_profile.workload_subnet_1.id
 
   container {
     name   = "hello-world"
