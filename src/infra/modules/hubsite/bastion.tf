@@ -64,7 +64,7 @@ resource "azurerm_network_security_rule" "AllowBastionHostCommunication" {
   direction                   = "Inbound"
   access                      = "Allow"
   protocol                    = "*"
-  source_port_ranges          = ["*"]
+  source_port_ranges          = ["5701","8080"]
   destination_port_ranges     = ["5701","8080"]
   source_address_prefix       = "VirtualNetwork"
   destination_address_prefix  = "VirtualNetwork"
