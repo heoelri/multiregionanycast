@@ -17,10 +17,10 @@ module "hubsite_westeurope" {
   routeserver_ip2 = "10.100.5.5"
 }
 
-module "hubsite_northeurope" {
+module "hubsite_swedencentral" {
   #for_each = toset(var.hubsites)
   source   = "./modules/hubsite"
-  location = "northeurope" #each.value
+  location = "swedencentral" #each.value
 
   address_space = ["10.200.0.0/16"]
 
