@@ -19,6 +19,7 @@ resource "random_string" "suffix" {
 
   upper = false
   length = 6
+  special = false
 }
 
 # generate private key for routernva vm ssh access
