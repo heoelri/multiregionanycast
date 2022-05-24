@@ -17,8 +17,8 @@ resource "azurerm_virtual_network_gateway" "clientsite" {
   vpn_type = "RouteBased"
 
   active_active = false
-  enable_bgp    = false
-  sku           = "Basic"
+  enable_bgp    = true
+  sku           = "Standard"
 
   ip_configuration {
     name                          = "vnetGatewayConfig"
