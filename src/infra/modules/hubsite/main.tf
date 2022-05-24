@@ -17,7 +17,7 @@ resource "random_id" "suffix" {
     value = azurerm_resource_group.hubsite.name # generate once 
   }
 
-  byte_length = 8
+  byte_length = 4
 }
 
 # generate private key for routernva vm ssh access

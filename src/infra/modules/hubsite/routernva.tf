@@ -71,7 +71,7 @@ data "template_file" "cloudinit" {
 }
 
 resource "azurerm_storage_account" "hubsite_routervm_1" {
-  name                     = "hubsitediagstor${random_id.suffix}"
+  name                     = "hubsitediagstor${random_id.suffix.id}"
   resource_group_name      = azurerm_resource_group.hubsite.name
   location                 = azurerm_resource_group.hubsite.location
   account_tier             = "Standard"
