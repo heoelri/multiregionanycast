@@ -10,6 +10,30 @@ resource "azurerm_subnet" "workload_subnet_1" {
   resource_group_name  = azurerm_resource_group.workload.name
   virtual_network_name = azurerm_virtual_network.workload.name
   address_prefixes     = var.subnet_1_address_space
+
+  delegation {
+    name = "delegation"
+
+    service_delegation {
+      name    = "Microsoft.ContainerInstance/containerGroups"
+      actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
+    }
+  }
+}
+
+resource "azurerm_network_profile" "workload_subnet_1" {
+  name                = "networkprofile"
+  location            = azurerm_resource_group.workload.location
+  resource_group_name = azurerm_resource_group.workload.name
+
+  container_network_interface {
+    name = "containernic"
+
+    ip_configuration {
+      name      = "ipconfig"
+      subnet_id = azurerm_subnet.workload_subnet_1.id
+    }
+  }
 }
 
 # peer remote virtual network with workload vnet
