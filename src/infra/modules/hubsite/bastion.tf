@@ -127,8 +127,8 @@ resource "azurerm_network_security_rule" "AllowGetSessionInformation" {
 }
 
 resource "azurerm_subnet_network_security_group_association" "example" {
-  subnet_id                 = azurerm_subnet.azure_bastion.id
-  network_security_group_id = azurerm_network_security_group.azure_bastion.id
+  subnet_id                 = azurerm_subnet.hubvnet_subnet_bastion.id
+  network_security_group_id = azurerm_network_security_group.hubvnet_bastion_nsg.id
   depends_on = [
     azurerm_network_security_rule.AllowHttpsInbound,
     azurerm_network_security_rule.AllowGatewayManagerInbound,
