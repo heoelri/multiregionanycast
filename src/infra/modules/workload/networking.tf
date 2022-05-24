@@ -15,7 +15,7 @@ resource "azurerm_subnet" "workload_subnet_1" {
 # peer remote virtual network with workload vnet
 resource "azurerm_virtual_network_peering" "peering-to" {
   name                      = "peer-remote-vnet-with-workload"
-  resource_group_name       = azurerm_resource_group.workload.name
+  resource_group_name       = var.hubsite_resource_group_name
   virtual_network_name      = var.peer_with_vnet_id
   remote_virtual_network_id = azurerm_virtual_network.workload.id
 }
