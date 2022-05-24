@@ -2,7 +2,7 @@ resource "azurerm_container_group" "workload" {
   name                = "${azurerm_resource_group.workload.name}-ci"
   location            = azurerm_resource_group.workload.location
   resource_group_name = azurerm_resource_group.workload.name
-  ip_address_type     = "private"
+  ip_address_type     = "Private"
   dns_name_label      = "aci-label"
   os_type             = "Linux"
 
