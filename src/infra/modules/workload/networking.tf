@@ -21,6 +21,17 @@ resource "azurerm_subnet" "workload_subnet_1" {
   }
 }
 
+resource "azurerm_network_security_group" "workload_subnet_1" {
+  name                = "${azurerm_virtual_network.workload.name}-${azurerm_subnet.workload_subnet_1.name}-nsg"
+  location            = azurerm_resource_group.workload.location
+  resource_group_name = azurerm_resource_group.workload.name
+}
+
+resource "azurerm_subnet_network_security_group_association" "workload_subnet_1_nsg" {
+  subnet_id                 = azurerm_subnet.workload_subnet_1.id
+  network_security_group_id = azurerm_network_security_group.workload_subnet_1.id
+}
+
 resource "azurerm_network_profile" "workload_subnet_1" {
   name                = "networkprofile"
   location            = azurerm_resource_group.workload.location
@@ -38,16 +49,18 @@ resource "azurerm_network_profile" "workload_subnet_1" {
 
 # peer remote virtual network with workload vnet
 resource "azurerm_virtual_network_peering" "peering-to" {
-  name                      = "peer-remote-vnet-with-workload"
-  resource_group_name       = var.hubsite_resource_group_name
-  virtual_network_name      = var.peer_with_vnet_id
-  remote_virtual_network_id = azurerm_virtual_network.workload.id
+  name                      = "peer-hubsite-vnet-with-workload"
+  resource_group_name       = var.hubsite_resource_group_name # hubsite virtual network resource group
+  virtual_network_name      = var.hubsite_virtual_network_name # hubsite virtual network name
+
+  remote_virtual_network_id = azurerm_virtual_network.workload.id # workload virtual network resource id
 }
 
 # peer workload vnet with remote virtual network
 resource "azurerm_virtual_network_peering" "peering-from" {
-  name                      = "peer-workload-with-remote-vnet"
-  resource_group_name       = azurerm_resource_group.workload.name
-  virtual_network_name      = azurerm_virtual_network.workload.name
-  remote_virtual_network_id = var.peer_with_vnet_id
+  name                      = "peer-workload-with-hubsite"
+  resource_group_name       = azurerm_resource_group.workload.name # workload virtual network resource group
+  virtual_network_name      = azurerm_virtual_network.workload.name # workload virtual network name
+
+  remote_virtual_network_id = var.peer_with_vnet_id # hubsite virtual network resource id
 }

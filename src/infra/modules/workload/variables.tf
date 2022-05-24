@@ -17,6 +17,10 @@ variable "hubsite_resource_group_name" {
   description = "Hub Site Resource Group"
 }
 
+variable "hubsite_virtual_network_name" {
+  description = "Name of the hubsite virtual network"
+}
+
 variable "peer_with_vnet_id" {
   description = "Resource ID of the target virtual network"
 }

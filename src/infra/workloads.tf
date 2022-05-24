@@ -9,6 +9,7 @@ module "workload_westeurope" {
   # azure resource id of the hubsite vnet to peer with
   peer_with_vnet_id = module.hubsite_westeurope.virtual_network_id
   hubsite_resource_group_name = module.hubsite_westeurope.resource_group_name
+  hubsite_virtual_network_name = module.hubsite_westeurope.virtual_network_name
 }
 
 module "workload_swedencentral" {
@@ -22,4 +23,5 @@ module "workload_swedencentral" {
   # azure resource id of the hubsite vnet to peer with
   peer_with_vnet_id = module.hubsite_swedencentral.virtual_network_id
   hubsite_resource_group_name = module.hubsite_swedencentral.resource_group_name
+  hubsite_virtual_network_name = module.hubsite_swedencentral.virtual_network_name
 }

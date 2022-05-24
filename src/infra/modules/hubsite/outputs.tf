@@ -19,5 +19,10 @@ output "virtual_network_gateway_id" {
 
 # returns the azure resource id of the hubsite's virtual network
 output "virtual_network_id" {
-    value = azurerm_virtual_network.hubvneta.id
+    value = azurerm_virtual_network.hubsite.id
+}
+
+# returns the name of the hubsite's virtual network
+output "virtual_network_name" {
+    value = azurerm_virtual_network.hubsite.name
 }
