@@ -12,12 +12,13 @@ resource "random_password" "password" {
   }
 }
 
-resource "random_id" "suffix" {
+resource "random_string" "suffix" {
   keepers = {
     value = azurerm_resource_group.hubsite.name # generate once 
   }
 
-  byte_length = 4
+  upper = false
+  length = 6
 }
 
 # generate private key for routernva vm ssh access

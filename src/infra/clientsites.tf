@@ -14,7 +14,7 @@ resource "random_password" "vpn_shared_key" {
   }
 }
 
-# vpn connection from client site a to hubsite a
+# vpn connection from client site a to hubsite westeurope
 resource "azurerm_virtual_network_gateway_connection" "clientsite_to_hubsitea" {
   name                = "clientsite-to-hubsite-westeurope"
   location            = module.clientsite_westeurope.location
@@ -27,7 +27,7 @@ resource "azurerm_virtual_network_gateway_connection" "clientsite_to_hubsitea" {
   shared_key = random_password.vpn_shared_key.result
 }
 
-# vpn connection from client site a to hubsite a
+# vpn connection from client site a to hubsite northeurope
 resource "azurerm_virtual_network_gateway_connection" "clientsite_to_hubsiteb" {
   name                = "clientsite-to-hubsite-northeurope"
   location            = module.clientsite_westeurope.location
@@ -35,7 +35,7 @@ resource "azurerm_virtual_network_gateway_connection" "clientsite_to_hubsiteb" {
 
   type                            = "Vnet2Vnet"
   virtual_network_gateway_id      = module.clientsite_westeurope.virtual_network_gateway_id
-  peer_virtual_network_gateway_id = module.hubsite_westeurope.virtual_network_gateway_id
+  peer_virtual_network_gateway_id = module.hubsite_northeurope.virtual_network_gateway_id
 
   shared_key = random_password.vpn_shared_key.result
 }
