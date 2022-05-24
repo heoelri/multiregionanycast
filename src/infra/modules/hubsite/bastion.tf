@@ -30,7 +30,7 @@ resource "azurerm_network_security_rule" "AllowHttpsInbound" {
   source_address_prefix       = "Internet"
   destination_address_prefix  = "*"
   resource_group_name         = azurerm_resource_group.hubsite.name
-  network_security_group_name = azurerm_resource_group.hubvnet_bastion_nsg.name
+  network_security_group_name = azurerm_network_security_group.hubvnet_bastion_nsg.name
 }
 resource "azurerm_network_security_rule" "AllowGatewayManagerInbound" {
   name                        = "AllowGatewayManagerInbound"
@@ -56,7 +56,7 @@ resource "azurerm_network_security_rule" "AllowAzureLoadBalancerInbound" {
   source_address_prefix       = "AzureLoadBalancer"
   destination_address_prefix  = "*"
   resource_group_name         = azurerm_resource_group.hubsite.name
-  network_security_group_name = azurerm_resource_group.hubvnet_bastion_nsg.name
+  network_security_group_name = azurerm_network_security_group.hubvnet_bastion_nsg.name
 }
 resource "azurerm_network_security_rule" "AllowBastionHostCommunication" {
   name                        = "AllowBastionHostCommunication"
@@ -69,7 +69,7 @@ resource "azurerm_network_security_rule" "AllowBastionHostCommunication" {
   source_address_prefix       = "VirtualNetwork"
   destination_address_prefix  = "VirtualNetwork"
   resource_group_name         = azurerm_resource_group.hubsite.name
-  network_security_group_name = azurerm_resource_group.hubvnet_bastion_nsg.name
+  network_security_group_name = azurerm_network_security_group.hubvnet_bastion_nsg.name
 }
 
 # Bastion Outbound Rules
@@ -84,7 +84,7 @@ resource "azurerm_network_security_rule" "AllowSshRdpOutbound" {
   source_address_prefix       = "*"
   destination_address_prefix  = "VirtualNetwork"
   resource_group_name         = azurerm_resource_group.hubsite.name
-  network_security_group_name = azurerm_resource_group.hubvnet_bastion_nsg.name
+  network_security_group_name = azurerm_network_security_group.hubvnet_bastion_nsg.name
 }
 resource "azurerm_network_security_rule" "AllowAzureCloudOutbound" {
   name                        = "AllowAzureCloudOutbound"
@@ -97,7 +97,7 @@ resource "azurerm_network_security_rule" "AllowAzureCloudOutbound" {
   source_address_prefix       = "*"
   destination_address_prefix  = "AzureCloud"
   resource_group_name         = azurerm_resource_group.hubsite.name
-  network_security_group_name = azurerm_resource_group.hubvnet_bastion_nsg.name
+  network_security_group_name = azurerm_network_security_group.hubvnet_bastion_nsg.name
 }
 resource "azurerm_network_security_rule" "AllowBastionCommunication" {
   name                        = "AllowBastionCommunication"
@@ -110,7 +110,7 @@ resource "azurerm_network_security_rule" "AllowBastionCommunication" {
   source_address_prefix       = "VirtualNetwork"
   destination_address_prefix  = "VirtualNetwork"
   resource_group_name         = azurerm_resource_group.hubsite.name
-  network_security_group_name = azurerm_resource_group.hubvnet_bastion_nsg.name
+  network_security_group_name = azurerm_network_security_group.hubvnet_bastion_nsg.name
 }
 resource "azurerm_network_security_rule" "AllowGetSessionInformation" {
   name                        = "AllowGetSessionInformation"
@@ -123,7 +123,7 @@ resource "azurerm_network_security_rule" "AllowGetSessionInformation" {
   source_address_prefix       = "*"
   destination_address_prefix  = "Internet"
   resource_group_name         = azurerm_resource_group.hubsite.name
-  network_security_group_name = azurerm_resource_group.hubvnet_bastion_nsg.name
+  network_security_group_name = azurerm_network_security_group.hubvnet_bastion_nsg.name
 }
 
 resource "azurerm_subnet_network_security_group_association" "example" {
