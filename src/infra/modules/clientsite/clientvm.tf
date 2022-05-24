@@ -22,7 +22,7 @@ resource "azurerm_network_interface" "clientsite_clientvm" {
 }
 
 resource "azurerm_windows_virtual_machine" "clientsite_clientvm" {
-  name                = "client-vm"
+  name                = substr("${azurerm_resource_group.clientsite.name}-clientvm",0,12)
   resource_group_name = azurerm_resource_group.clientsite.name
   location            = azurerm_resource_group.clientsite.location
   size                = "Standard_F2"
