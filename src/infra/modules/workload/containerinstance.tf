@@ -3,7 +3,7 @@ resource "azurerm_container_group" "workload" {
   location            = azurerm_resource_group.workload.location
   resource_group_name = azurerm_resource_group.workload.name
   ip_address_type     = "Private"
-  dns_name_label      = "aci-label"
+  #dns_name_label      = "aci-label" conflicts with network_profile_id
   os_type             = "Linux"
 
   network_profile_id = azurerm_subnet.workload_subnet_1.id
