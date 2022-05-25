@@ -48,5 +48,5 @@ jobs:
 
     - name: Terraform Apply
       id: apply
-      run: terraform apply -auto-approve tf_plan
+      run: terraform apply -parallelism=25 -auto-approve tf_plan
       continue-on-error: false
