@@ -32,7 +32,7 @@ resource "azurerm_subnet" "clientsite_subnet_clients" {
 }
 
 resource "azurerm_network_security_group" "default" {
-  name                = "${azurerm_virtual_network.clientsite.name}-default-nsg"
+  name                = "${azurerm_virtual_network.clientvneta.name}-default-nsg"
   location            = azurerm_resource_group.clientsite.location
   resource_group_name = azurerm_resource_group.clientsite.name
 }
