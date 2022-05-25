@@ -7,6 +7,12 @@ resource "azurerm_public_ip" "hubsite_routeserver" {
   sku                 = "Standard"
 }
 
+resource "azurerm_virtual_wan" "hubsite_vwan" {
+  name                = "${azurerm_resource_group.hubsite.name}-vwan"
+  resource_group_name = azurerm_resource_group.hubsite.name
+  location            = azurerm_resource_group.hubsite.location
+}
+
 # deploy azure route server via azapi (due to a lack of functionality in azurerm)
 resource "azapi_resource" "hubsite_routeserver" {
   type      = "Microsoft.Network/virtualHubs@2021-08-01"
