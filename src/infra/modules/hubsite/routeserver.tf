@@ -18,7 +18,7 @@ resource "azurerm_public_ip" "hubsite" {
 resource "azapi_resource" "hubsite_vhub_ip" {
   type      = "Microsoft.Network/virtualHubs@2020-11-01"
   name      = "${azurerm_resource_group.hubsite.name}-vhubipconfig"
-  parent_id = azurerm_resource_group.hubsite.name
+  parent_id = azurerm_resource_group.hubsite.id
   location  = azurerm_resource_group.hubsite.location
 
   body = jsonencode({
