@@ -25,7 +25,7 @@ resource "azapi_resource" "hubsite_routeserver" {
     properties = {
       sku                        = "Standard"
       allowBranchToBranchTraffic = true,
-      virtualRouterAsn           = "${var.peer_asn}"
+      virtualRouterAsn           = "${var.asn_routeserver}"
     }
   })
 
@@ -47,8 +47,6 @@ resource "azurerm_virtual_hub_ip" "hubsite_vhub_ip" {
 
   virtual_hub_id = azapi_resource.hubsite_routeserver.id
 
-  #virtual_hub_id = azurerm_virtual_hub.hubsite_vhub.id
-  #private_ip_address           = "10.1.5.18"
   private_ip_allocation_method = "Dynamic" #"Static"
   public_ip_address_id         = azurerm_public_ip.hubsite_routeserver.id
   subnet_id                    = azurerm_subnet.hubvnet_subnet_routeserver.id
@@ -59,7 +57,7 @@ resource "azurerm_virtual_hub_bgp_connection" "hubsite_nva_connection" {
   name = "${azurerm_resource_group.hubsite.name}-vhub-bgpconnection"
   #virtual_hub_id = azurerm_virtual_hub.hubsite_vhub.id
   virtual_hub_id = azapi_resource.hubsite_routeserver.id
-  peer_asn       = var.peer_asn # bgp asn for azure route server
+  peer_asn       = var.asn_routernva # Autonomous system number assigned to quagga router vm
   peer_ip        = azurerm_network_interface.hubsite_routervm_1.private_ip_address
 
   depends_on = [

@@ -27,7 +27,7 @@ resource "azurerm_virtual_network_gateway" "hubsite_vpngw" {
   sku           = "HighPerformance"
 
   bgp_settings {
-    asn = var.vpn_asn # ASN used for the VPN GW (defaults to 65515)
+    asn = var.asn_vpngw # ASN used for the VPN GW (defaults to 65515)
   }
 
   ip_configuration {

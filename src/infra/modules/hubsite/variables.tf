@@ -3,12 +3,17 @@ variable "location" {
   type        = string
 }
 
-variable "peer_asn" {
+variable "asn_routernva" {
   description = "Autonomous system number assigned to quagga router vm"
   default     = 65001
 }
 
-variable "vpn_asn" {
+variable "asn_vpngw" {
+  description = "Autonomous system number used by the VPN GW"
+  default     = 65515
+}
+
+variable "asn_routeserver" {
   description = "Autonomous system number used by the VPN GW"
   default     = 65515
 }
