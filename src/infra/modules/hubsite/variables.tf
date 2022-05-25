@@ -52,13 +52,3 @@ variable "bastionsubnet_address_space" {
   description = "Hubsite Virtual Network Address Space"
   default     = ["10.1.6.0/24"]
 }
-
-variable "routeserver_ip1" {
-  description = "Azure Route Server Peer IP 1 - not automated yet"
-  default     = "10.1.5.4"
-}
-
-variable "routeserver_ip2" {
-  description = "Azure Route Server Peer IP 2 - not automated yet"
-  default     = "10.1.5.5"
-}

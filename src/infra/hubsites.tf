@@ -3,7 +3,7 @@ module "hubsite_westeurope" {
   location = "westeurope"
 
   asn_vpngw  = 64512 # vpn gateway bgp asn
-  asn_routeserver = 64513 # route server bgp asn
+  asn_routeserver = 64513 # route server bgp asn (ignored always 65515)
   asn_routernva = 64514 # router nva bgp asn
 
   address_space = ["10.100.0.0/16"] # address space used for hubsite virtual network
@@ -15,9 +15,6 @@ module "hubsite_westeurope" {
   gatewaysubnet_address_space     = ["10.100.4.0/24"] # vpn gateway subnet
   routeserversubnet_address_space = ["10.100.5.0/24"] # azure route server subnet
   bastionsubnet_address_space     = ["10.100.6.0/24"] # azure bastion subnet
-
-  routeserver_ip1 = "10.100.5.4" # needs to be set manually (based on routeserversubnet)
-  routeserver_ip2 = "10.100.5.5" # needs to be set manually (based on routeserversubnet)
 }
 
 module "hubsite_swedencentral" {
@@ -25,7 +22,7 @@ module "hubsite_swedencentral" {
   location = "swedencentral"
 
   asn_vpngw  = 65521 # vpn gateway bgp asn
-  asn_routeserver = 65522 # route server bgp asn
+  asn_routeserver = 65522 # route server bgp asn (ignored always 65515)
   asn_routernva = 65523 # router nva bgp asn
 
   address_space = ["10.200.0.0/16"] # address space used for hubsite virtual network
@@ -37,7 +34,4 @@ module "hubsite_swedencentral" {
   gatewaysubnet_address_space     = ["10.200.4.0/24"] # vpn gateway subnet
   routeserversubnet_address_space = ["10.200.5.0/24"] # azure route server subnet
   bastionsubnet_address_space     = ["10.200.6.0/24"] # azure bastion subnet
-
-  routeserver_ip1 = "10.200.5.4" # needs to be set manually (based on routeserversubnet)
-  routeserver_ip2 = "10.200.5.5" # needs to be set manually (based on routeserversubnet)
 }

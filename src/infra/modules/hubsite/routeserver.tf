@@ -16,7 +16,7 @@ resource "azurerm_public_ip" "hubsite_routeserver" {
 
 # deploy azure route server via azapi (due to a lack of functionality in azurerm)
 resource "azapi_resource" "hubsite_routeserver" {
-  type      = "Microsoft.Network/virtualHubs@2020-11-01"
+  type      = "Microsoft.Network/virtualHubs@2021-08-01"
   name      = "${azurerm_resource_group.hubsite.name}-routeserver"
   parent_id = azurerm_resource_group.hubsite.id
   location  = azurerm_resource_group.hubsite.location
@@ -25,7 +25,10 @@ resource "azapi_resource" "hubsite_routeserver" {
     properties = {
       sku                        = "Standard"
       allowBranchToBranchTraffic = true,
-      virtualRouterAsn           = "${var.asn_routeserver}"
+      virtualRouterAsn           = "${var.asn_routeserver}",
+      vpnGateway = {
+        id = azurerm_virtual_network_gateway.hubsite_vpngw.id
+      }
     }
   })
 
