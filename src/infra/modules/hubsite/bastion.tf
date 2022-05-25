@@ -126,7 +126,7 @@ resource "azurerm_network_security_rule" "AllowGetSessionInformation" {
   network_security_group_name = azurerm_network_security_group.hubvnet_bastion_nsg.name
 }
 
-resource "azurerm_subnet_network_security_group_association" "example" {
+resource "azurerm_subnet_network_security_group_association" "hubsite_bastion_nsg" {
   subnet_id                 = azurerm_subnet.hubvnet_subnet_bastion.id
   network_security_group_id = azurerm_network_security_group.hubvnet_bastion_nsg.id
   depends_on = [

@@ -12,7 +12,7 @@ resource "azurerm_subnet" "workload_subnet_1" {
   address_prefixes     = var.subnet_1_address_space
 
   delegation {
-    name = "delegation"
+    name = "Microsoft.ContainerInstance.containerGroups"
 
     service_delegation {
       name    = "Microsoft.ContainerInstance/containerGroups"
