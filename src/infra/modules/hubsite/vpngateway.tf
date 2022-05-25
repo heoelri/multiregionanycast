@@ -21,8 +21,8 @@ resource "azurerm_vpn_gateway" "hubsite_vpngw" {
   virtual_hub_id      = azapi_resource.hubsite_routeserver.id
 
   bgp_settings {
-     asn = var.asn_vpngw # ASN used for the VPN GW (defaults to 65515)
-     peer_weight = 1
+    asn         = var.asn_vpngw # ASN used for the VPN GW (defaults to 65515)
+    peer_weight = 1
   }
 }
 

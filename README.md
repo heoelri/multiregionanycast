@@ -11,6 +11,10 @@
 
 * VPN Gateway deployment can take a while - up to 40mins
 
+## To be investigated
+
+* VVWAN VpnGateway or Virtual Network Gateway?
+
 ## Requirements
 
 * Client VPN Gateway needs to be set to 'Standard' to support bgp.

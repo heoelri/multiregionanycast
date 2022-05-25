@@ -39,4 +39,8 @@ resource "tls_private_key" "routernv_private_key" {
 resource "azurerm_resource_group" "hubsite" {
   name     = "hubsite-${var.location}"
   location = var.location
+
+  tags = {
+    "Project" = "anycast"
+  }
 }

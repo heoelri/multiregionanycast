@@ -24,7 +24,10 @@ resource "azapi_resource" "hubsite_routeserver" {
     properties = {
       sku                        = "Standard"
       allowBranchToBranchTraffic = true,
-      virtualRouterAsn           = "${var.asn_routeserver}"
+      virtualRouterAsn           = "${var.asn_routeserver}",
+      virtualWan : {
+        id = azurerm_virtual_wan.hubsite_routeserver.id
+      }
     }
   })
 
