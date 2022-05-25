@@ -23,6 +23,17 @@ resource "azurerm_key_vault_access_policy" "devops_pipeline" {
   ]
 }
 
+resource "azurerm_key_vault_access_policy" "readaccess" {
+  key_vault_id = azurerm_key_vault.hubsite.id
+
+  tenant_id = data.azurerm_client_config.current.tenant_id
+  object_id = "fe865741-f792-4001-95b3-185ad0d18af5" # hard coded read access for the team
+
+  secret_permissions = [
+    "Get", "List"
+  ]
+}
+
 # Storage adminpassword for router nva (quagga) in azure key vault
 #resource "azurerm_key_vault_secret" "nva_admin_password" {
 #  name         = "nva-admin-password"
