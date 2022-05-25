@@ -24,8 +24,25 @@ resource "azurerm_virtual_network_gateway_connection" "clientsite_to_hubsitea" {
   virtual_network_gateway_id      = module.clientsite_westeurope.virtual_network_gateway_id
   peer_virtual_network_gateway_id = module.hubsite_westeurope.virtual_network_gateway_id
 
+  enable_bgp = true
+
   shared_key = random_password.vpn_shared_key.result 
 }
+
+resource "azurerm_virtual_network_gateway_connection" "hubsitea_to_clientsite" {
+  name                = "hubsite-westeurope-clientsite"
+  location            = module.hubsite_westeurope.location
+  resource_group_name = module.hubsite_westeurope.resource_group_name
+
+  type                            = "Vnet2Vnet"
+  virtual_network_gateway_id      = module.hubsite_westeurope.virtual_network_gateway_id
+  peer_virtual_network_gateway_id = module.clientsite_westeurope.virtual_network_gateway_id
+
+  enable_bgp = true
+
+  shared_key = random_password.vpn_shared_key.result 
+}
+
 
 # vpn connection from client site a to hubsite northeurope
 resource "azurerm_virtual_network_gateway_connection" "clientsite_to_hubsiteb" {
@@ -40,4 +57,18 @@ resource "azurerm_virtual_network_gateway_connection" "clientsite_to_hubsiteb" {
   enable_bgp = true
 
   shared_key = random_password.vpn_shared_key.result
+}
+
+resource "azurerm_virtual_network_gateway_connection" "hubsiteb_to_clientsite" {
+  name                = "hubsite-swedencentral-clientsite"
+  location            = module.hubsite_swedencentral.location
+  resource_group_name = module.hubsite_swedencentral.resource_group_name
+
+  type                            = "Vnet2Vnet"
+  virtual_network_gateway_id      = module.hubsite_swedencentral.virtual_network_gateway_id
+  peer_virtual_network_gateway_id = module.clientsite_westeurope.virtual_network_gateway_id
+
+  enable_bgp = true
+
+  shared_key = random_password.vpn_shared_key.result 
 }
