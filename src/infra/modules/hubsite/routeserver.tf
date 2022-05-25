@@ -7,7 +7,7 @@
 
 # public ip used for azure route server (required)
 resource "azurerm_public_ip" "hubsite_routeserver" {
-  name                = "${azurerm_resource_group.hubsite.name}-pip"
+  name                = "${azurerm_resource_group.hubsite.name}-routeserver-pip"
   location            = azurerm_resource_group.hubsite.location
   resource_group_name = azurerm_resource_group.hubsite.name
   allocation_method   = "Static"
@@ -25,7 +25,10 @@ resource "azapi_resource" "hubsite_routeserver" {
     properties = {
       sku                        = "Standard"
       allowBranchToBranchTraffic = true,
-      virtualRouterAsn           = "${var.peer_asn}"
+      virtualRouterAsn           = "${var.peer_asn}",
+      vpnGateway = {
+        id = "${azurerm_virtual_network_gateway.hubsite_vpngw.id}"
+      }
     }
   })
 
