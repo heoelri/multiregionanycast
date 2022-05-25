@@ -49,18 +49,26 @@ resource "azurerm_network_profile" "workload_subnet_1" {
 
 # peer remote virtual network with workload vnet
 resource "azurerm_virtual_network_peering" "peering-to" {
-  name                      = "peer-hubsite-vnet-with-workload"
-  resource_group_name       = var.hubsite_resource_group_name # hubsite virtual network resource group
-  virtual_network_name      = var.hubsite_virtual_network_name # hubsite virtual network name
+  name                 = "peer-hubsite-vnet-with-workload"
+  resource_group_name  = var.hubsite_resource_group_name  # hubsite virtual network resource group
+  virtual_network_name = var.hubsite_virtual_network_name # hubsite virtual network name
 
   remote_virtual_network_id = azurerm_virtual_network.workload.id # workload virtual network resource id
+
+  allow_gateway_transit        = true
+  allow_virtual_network_access = true
+  allow_forwarded_traffic      = true
 }
 
 # peer workload vnet with remote virtual network
 resource "azurerm_virtual_network_peering" "peering-from" {
-  name                      = "peer-workload-with-hubsite"
-  resource_group_name       = azurerm_resource_group.workload.name # workload virtual network resource group
-  virtual_network_name      = azurerm_virtual_network.workload.name # workload virtual network name
+  name                 = "peer-workload-with-hubsite"
+  resource_group_name  = azurerm_resource_group.workload.name  # workload virtual network resource group
+  virtual_network_name = azurerm_virtual_network.workload.name # workload virtual network name
 
   remote_virtual_network_id = var.peer_with_vnet_id # hubsite virtual network resource id
+
+  allow_gateway_transit        = true
+  allow_virtual_network_access = true
+  allow_forwarded_traffic      = true
 }

@@ -64,8 +64,8 @@ resource "azurerm_network_security_rule" "AllowBastionHostCommunication" {
   direction                   = "Inbound"
   access                      = "Allow"
   protocol                    = "*"
-  source_port_ranges          = ["5701","8080"]
-  destination_port_ranges     = ["5701","8080"]
+  source_port_ranges          = ["5701", "8080"]
+  destination_port_ranges     = ["5701", "8080"]
   source_address_prefix       = "VirtualNetwork"
   destination_address_prefix  = "VirtualNetwork"
   resource_group_name         = azurerm_resource_group.hubsite.name
@@ -79,8 +79,8 @@ resource "azurerm_network_security_rule" "AllowSshRdpOutbound" {
   direction                   = "Outbound"
   access                      = "Allow"
   protocol                    = "*"
-  source_port_ranges          = ["22","3389"]
-  destination_port_ranges     = ["22","3389"]
+  source_port_ranges          = ["22", "3389"]
+  destination_port_ranges     = ["22", "3389"]
   source_address_prefix       = "*"
   destination_address_prefix  = "VirtualNetwork"
   resource_group_name         = azurerm_resource_group.hubsite.name
@@ -105,8 +105,8 @@ resource "azurerm_network_security_rule" "AllowBastionCommunication" {
   direction                   = "Outbound"
   access                      = "Allow"
   protocol                    = "*"
-  source_port_ranges          = ["5701","8080"]
-  destination_port_ranges     = ["5701","8080"]
+  source_port_ranges          = ["5701", "8080"]
+  destination_port_ranges     = ["5701", "8080"]
   source_address_prefix       = "VirtualNetwork"
   destination_address_prefix  = "VirtualNetwork"
   resource_group_name         = azurerm_resource_group.hubsite.name

@@ -1,6 +1,6 @@
 # hub site key vault used to store secrets
 resource "azurerm_key_vault" "hubsite" {
-  name                        = "${substr(azurerm_resource_group.hubsite.name,0,20)}-kv"
+  name                        = "${substr(azurerm_resource_group.hubsite.name, 0, 20)}-kv"
   location                    = azurerm_resource_group.hubsite.location
   resource_group_name         = azurerm_resource_group.hubsite.name
   enabled_for_disk_encryption = true

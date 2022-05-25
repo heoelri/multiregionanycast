@@ -1,9 +1,9 @@
 module "hubsite_westeurope" {
   source   = "./modules/hubsite"
-  location = "westeurope" 
+  location = "westeurope"
 
-  vpn_asn = 65100 # vpn gateway bgp asn
-  peer_asn = 65110 # route server bgp asn
+  vpn_asn  = 64512 # vpn gateway bgp asn
+  peer_asn = 64513 # route server bgp asn
 
   address_space = ["10.100.0.0/16"]
 
@@ -21,10 +21,10 @@ module "hubsite_westeurope" {
 
 module "hubsite_swedencentral" {
   source   = "./modules/hubsite"
-  location = "swedencentral" 
+  location = "swedencentral"
 
-  vpn_asn = 65200 # vpn gateway bgp asn
-  peer_asn = 65210 # route server bgp asn
+  vpn_asn  = 65521 # vpn gateway bgp asn
+  peer_asn = 65522 # route server bgp asn
 
   address_space = ["10.200.0.0/16"]
 

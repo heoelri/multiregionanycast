@@ -16,8 +16,8 @@ resource "azurerm_public_ip" "hubsite" {
 
 # azure route server resource
 resource "azurerm_virtual_hub_ip" "hubsite_vhub_ip" {
-  name                         = "${azurerm_resource_group.hubsite.name}-vhubipconfig"
-  virtual_hub_id               = azurerm_virtual_hub.hubsite_vhub.id
+  name           = "${azurerm_resource_group.hubsite.name}-vhubipconfig"
+  virtual_hub_id = azurerm_virtual_hub.hubsite_vhub.id
   #private_ip_address           = "10.1.5.18"
   private_ip_allocation_method = "Dynamic" #"Static"
   public_ip_address_id         = azurerm_public_ip.hubsite.id

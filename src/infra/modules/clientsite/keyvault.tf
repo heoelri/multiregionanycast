@@ -1,6 +1,6 @@
 # client site key vault used to store secrets
 resource "azurerm_key_vault" "clientsite" {
-  name                        = substr("${azurerm_resource_group.clientsite.name}-kv",0,22)
+  name                        = substr("${azurerm_resource_group.clientsite.name}-kv", 0, 22)
   location                    = azurerm_resource_group.clientsite.location
   resource_group_name         = azurerm_resource_group.clientsite.name
   enabled_for_disk_encryption = true

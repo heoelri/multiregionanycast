@@ -17,8 +17,8 @@ resource "random_string" "suffix" {
     value = azurerm_resource_group.hubsite.name # generate once 
   }
 
-  upper = false
-  length = 6
+  upper   = false
+  length  = 6
   special = false
 }
 
