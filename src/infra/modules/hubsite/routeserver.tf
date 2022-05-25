@@ -24,7 +24,7 @@ resource "azapi_resource" "hubsite_vhub_ip" {
   body = jsonencode({
     properties = {
       sku                        = "Standard"
-      allowBranchToBranchTraffic = "true",
+      allowBranchToBranchTraffic = true,
       virtualRouterAsn           = "${var.peer_asn}",
       vpnGateway = {
         id = "${azurerm_virtual_network_gateway.hubsite_vpngw.id}"
