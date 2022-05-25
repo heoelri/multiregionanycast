@@ -14,7 +14,7 @@ output "resource_group_name" {
 
 # returns the azure resource id of the hubsite's vpn gateway
 output "virtual_network_gateway_id" {
-  value = azurerm_virtual_network_gateway.hubsite_vpngw.id
+  value = azurerm_vpn_gateway.hubsite_vpngw.id
 }
 
 # returns the azure resource id of the hubsite's virtual network
