@@ -30,3 +30,14 @@ resource "azurerm_subnet" "clientsite_subnet_clients" {
   virtual_network_name = azurerm_virtual_network.clientvneta.name
   address_prefixes     = ["10.10.3.0/24"]
 }
+
+resource "azurerm_network_security_group" "default" {
+  name                = "${azurerm_virtual_network.clientsite.name}-default-nsg"
+  location            = azurerm_resource_group.clientsite.location
+  resource_group_name = azurerm_resource_group.clientsite.name
+}
+
+resource "azurerm_subnet_network_security_group_association" "clientsite_subnet_default_nsg" {
+  subnet_id                 = azurerm_subnet.clientsite_subnet_clients.id
+  network_security_group_id = azurerm_network_security_group.default.id
+}
