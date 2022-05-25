@@ -1,7 +1,8 @@
 module "hubsite_westeurope" {
-  #for_each = toset(var.hubsites)
   source   = "./modules/hubsite"
-  location = "westeurope" #each.value
+  location = "westeurope" 
+
+  vpn_asn = 65100
 
   address_space = ["10.100.0.0/16"]
 
@@ -18,9 +19,10 @@ module "hubsite_westeurope" {
 }
 
 module "hubsite_swedencentral" {
-  #for_each = toset(var.hubsites)
   source   = "./modules/hubsite"
-  location = "swedencentral" #each.value
+  location = "swedencentral" 
+
+  vpn_asn = 65200
 
   address_space = ["10.200.0.0/16"]
 

@@ -26,6 +26,10 @@ resource "azurerm_virtual_network_gateway" "hubsite_vpngw" {
   enable_bgp    = true
   sku           = "HighPerformance"
 
+  bgp_settings {
+    asn = var.vpn_asn # ASN used for the VPN GW (defaults to 65515)
+  }
+
   ip_configuration {
     name                          = "vnetGatewayConfig1"
     public_ip_address_id          = azurerm_public_ip.hubsite_vpngw_pip1.id

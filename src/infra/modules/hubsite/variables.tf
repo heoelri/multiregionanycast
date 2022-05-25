@@ -8,6 +8,11 @@ variable "peer_asn" {
   default = 65001
 }
 
+variable "vpn_asn" {
+  description = "Autonomous system number used by the VPN GW"
+  default = 65515
+}
+
 variable "address_space" {
   description = "Hubsite Virtual Network Address Space"
   default = ["10.1.0.0/16"]
