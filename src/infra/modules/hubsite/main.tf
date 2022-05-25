@@ -1,3 +1,11 @@
+terraform {
+  required_providers {
+    azapi = {
+      source = "Azure/azapi"
+    }
+  }
+}
+
 data "azurerm_client_config" "current" {
 }
 

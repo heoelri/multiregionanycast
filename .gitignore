@@ -1,2 +1,2 @@
 src/infra/.terraform
-src/infra/.terraform.lock.hcl
+*.lock.hcl
