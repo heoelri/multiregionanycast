@@ -1,10 +1,3 @@
-# resource "azurerm_virtual_hub" "hubsite_vhub" {
-#   name                = "${azurerm_resource_group.hubsite.name}-routeserver"
-#   resource_group_name = azurerm_resource_group.hubsite.name
-#   location            = azurerm_resource_group.hubsite.location
-#   sku                 = "Standard"
-# }
-
 # public ip used for azure route server (required)
 resource "azurerm_public_ip" "hubsite_routeserver" {
   name                = "${azurerm_resource_group.hubsite.name}-routeserver-pip"

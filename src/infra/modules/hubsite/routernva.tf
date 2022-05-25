@@ -60,11 +60,11 @@ data "template_file" "cloudinit" {
   template = file("${path.module}/quagga.conf")
 
   vars = {
-    asn_quagga      = var.asn_routernva, # Autonomous system number assigned to quagga
-    bgp_routerId    = azurerm_network_interface.hubsite_routervm_1.private_ip_address, # IP address of quagga VM
-    bgp_network1    = azurerm_subnet.hubvnet_subnet_1.address_prefixes[0], # first network advertised from quagga to the router server (inclusive of subnetmask)
-    bgp_network2    = azurerm_subnet.hubvnet_subnet_2.address_prefixes[0], # second network advertised from quagga to the router server (inclusive of subnetmask)
-    bgp_network3    = azurerm_subnet.hubvnet_subnet_3.address_prefixes[0], # third network advertised from quagga to the router server (inclusive of subnetmask)
+    asn_quagga      = var.asn_routernva,                                                                    # Autonomous system number assigned to quagga
+    bgp_routerId    = azurerm_network_interface.hubsite_routervm_1.private_ip_address,                      # IP address of quagga VM
+    bgp_network1    = azurerm_subnet.hubvnet_subnet_1.address_prefixes[0],                                  # first network advertised from quagga to the router server (inclusive of subnetmask)
+    bgp_network2    = azurerm_subnet.hubvnet_subnet_2.address_prefixes[0],                                  # second network advertised from quagga to the router server (inclusive of subnetmask)
+    bgp_network3    = azurerm_subnet.hubvnet_subnet_3.address_prefixes[0],                                  # third network advertised from quagga to the router server (inclusive of subnetmask)
     routeserver_IP1 = jsondecode(azapi_resource.hubsite_routeserver.output).properties.virtualRouterIps[0], # first IP address of the router server 
     routeserver_IP2 = jsondecode(azapi_resource.hubsite_routeserver.output).properties.virtualRouterIps[1]  # second IP address of the router server, 
   }

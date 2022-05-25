@@ -14,6 +14,13 @@ resource "azurerm_public_ip" "hubsite_vpngw_pip2" {
   allocation_method = "Dynamic"
 }
 
+resource "azurerm_vpn_gateway" "hubsite_vpngw" {
+  name                = "${azurerm_resource_group.hubsite.name}-vpngw-new"
+  location            = azurerm_resource_group.hubsite.location
+  resource_group_name = azurerm_resource_group.hubsite.name
+  virtual_hub_id      = azapi_resource.hubsite_routeserver.id
+}
+
 resource "azurerm_virtual_network_gateway" "hubsite_vpngw" {
   name                = "${azurerm_resource_group.hubsite.name}-vpngw"
   location            = azurerm_resource_group.hubsite.location
