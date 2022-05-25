@@ -28,7 +28,7 @@ resource "azurerm_virtual_hub_ip" "hubsite_vhub_ip" {
 resource "azurerm_virtual_hub_bgp_connection" "hubsite_nva_connection" {
   name           = "${azurerm_resource_group.hubsite.name}-vhub-bgpconnection"
   virtual_hub_id = azurerm_virtual_hub.hubsite_vhub.id
-  peer_asn       = var.peer_asn
+  peer_asn       = var.peer_asn # bgp asn for azure route server
   peer_ip        = azurerm_network_interface.hubsite_routervm_1.private_ip_address
 
   depends_on = [

@@ -2,7 +2,8 @@ module "hubsite_westeurope" {
   source   = "./modules/hubsite"
   location = "westeurope" 
 
-  vpn_asn = 65100
+  vpn_asn = 65100 # vpn gateway bgp asn
+  peer_asn = 65110 # route server bgp asn
 
   address_space = ["10.100.0.0/16"]
 
@@ -14,15 +15,16 @@ module "hubsite_westeurope" {
   routeserversubnet_address_space = ["10.100.5.0/24"]
   bastionsubnet_address_space     = ["10.100.6.0/24"]
 
-  routeserver_ip1 = "10.100.5.4"
-  routeserver_ip2 = "10.100.5.5"
+  routeserver_ip1 = "10.100.5.4" # needs to be set manually (based on routeserversubnet)
+  routeserver_ip2 = "10.100.5.5" # needs to be set manually (based on routeserversubnet)
 }
 
 module "hubsite_swedencentral" {
   source   = "./modules/hubsite"
   location = "swedencentral" 
 
-  vpn_asn = 65200
+  vpn_asn = 65200 # vpn gateway bgp asn
+  peer_asn = 65210 # route server bgp asn
 
   address_space = ["10.200.0.0/16"]
 
@@ -34,6 +36,6 @@ module "hubsite_swedencentral" {
   routeserversubnet_address_space = ["10.200.5.0/24"]
   bastionsubnet_address_space     = ["10.200.6.0/24"]
 
-  routeserver_ip1 = "10.200.5.4"
-  routeserver_ip2 = "10.200.5.5"
+  routeserver_ip1 = "10.200.5.4" # needs to be set manually (based on routeserversubnet)
+  routeserver_ip2 = "10.200.5.5" # needs to be set manually (based on routeserversubnet)
 }
