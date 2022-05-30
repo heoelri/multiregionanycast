@@ -53,10 +53,12 @@ jobs:
       continue-on-error: false
 
     - name: Terraform apply
+      if: ${{ github.event.inputs.destroy == 'false' }}
       id: apply
       run: terraform apply -parallelism=25 -auto-approve tf_plan
       continue-on-error: false
 
     - name: Terraform destroy
       if: ${{ github.event.inputs.destroy == 'true' }}
+      id: destroy
       run: terraform destroy -auto-approve
