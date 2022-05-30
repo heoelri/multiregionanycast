@@ -3,11 +3,12 @@ name: Deploy Infrastructure
 
 on:
   workflow_dispatch:
-  inputs:
-    destroy:
-      description: 'Destroy infrastructure'
-      default: false
-      type: boolean
+    inputs:
+      destroy:
+        description: 'Destroy infrastructure'
+        default: false
+        required: true
+        type: boolean
   push:
     branches:
     - main
